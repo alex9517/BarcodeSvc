@@ -81,9 +81,12 @@ Other fields are less important unless you want to get a "good looking"
 certificate.
 
 Assuming that JDK is installed, run
+
 ```
 keytool -genkey -alias cert01 -storetype PKCS12 -keyalg RSA -keysize 2048
-        -keystore keystore.p12 -validity 1827```
+        -keystore keystore.p12 -validity 1827
+```
+
 and carefully answer those questions.
 
 Actually, `-alias` should be more informative. The `-validity 1827` is
