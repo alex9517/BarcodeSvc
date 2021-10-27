@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Barcode Service : read/decode a barcode image</title>
+<meta name="description" content="This form allows to send a barcode image to service and receive the decoded data" />
+<meta name="charset" content="UTF-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="-1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" type="text/css" href="css/main.css" />
+<script src="js/jquery.js"></script>
+<script>
+$(function() {
+  $('#barcodeData').focus();
+});
+
+
+procInput = () => {
+  const codeData = $("#barcodeData").val().trim();
+
+  if (codeData && codeData.length == 12) {
+    const base_url = localStorage.getItem('barcode_svc_url')
+
+    if (!base_url) {
+      alert('Cannot send request - BASE_URL is not set!');
+      return;
+    }
+    const Url = base_url + '/barcodes/create/ean13/' + codeData;
+    // console.log('Url: ' + Url);
+    $("#picture").attr("src", Url);
+  } else {
+    alert('Barcode data must be exactly 12 digits!');
+  }
+};
+
+
+reset = () => {
+  $("#picture").attr("src", "images/nopic.png");
+  $("#barcodeData").val('');
+  $("#barcodeData").focus();
+};
+
+
+moveBack = () => {
+  window.history.back();
+};
+</script>
+</head><body>
+
+<div id="main">
+
+<h1>Create EAN-13 barcode</h1>
+
+<section>
+<item1>
+
+<img class="picture" id="picture" src="images/nopic.png" />
+
+</item1>
+
+<item2>
+
+<p>
+<span class="label">Barcode Data:</span></p>
+
+<div style="padding-left:2rem;padding-bottom:1rem">
+<input type="number" maxlength="12"
+    id="barcodeData" placeholder="Exactly 12 digits" />
+</div>
+
+<p class="info_small">
+The EAN-13 is a <b>numeric-only</b> code that contains 13 digits.
+The first 3 digits constitute a GS1 prefix (indicates country of registration
+or special type of product). A prefix with a first digit of "0" means that a
+12-digit UPC-A code follows. A prefix with first two digits of "45" or "49"
+indicates a Japanese Article Number (JAN). The 13th digit of EAN-13 is an
+auto-generated check digit.</p>
+
+</item2>
+</section>
+
+<section>
+<item3>
+
+<input id="btnSend" type="button" class="button" name="btnOk"
+    value="Send" onclick="procInput()" />
+
+<input type="button" class="button" name="btnCancel"
+    value="Back" onclick="moveBack()" />
+
+<input type="button" class="button" name="btnReset"
+    value="Reset" onclick="reset()" />
+
+</item3>
+</section>
+
+</div>
+
+</body></html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Barcode Service : read/decode a barcode image</title>
+<meta name="description" content="This form allows to send a barcode image to service and receive the decoded data" />
+<meta name="charset" content="UTF-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="-1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" type="text/css" href="css/main.css" />
+</head><body>
+
+
+<div id="main">
+
+<script>
+const BASE_URL = 'https://ws4:8443';
+
+let url = localStorage.getItem('barcode_svc_url');
+
+if (url != BASE_URL) {
+  localStorage.setItem('barcode_svc_url', BASE_URL);
+}
+</script>
+
+<h1>Read or create a barcode</h1>
+
+<section>
+<item4>
+<div style="margin-left:auto;margin-right:auto;font-size:120%">
+
+<p style="padding-bottom:2rem">
+<a href="readBarcode.html">Read / decode a barcode</a></p>
+
+<p>
+Create barcode:</p>
+<ul class="square">
+<li><a href="create_EAN-13.html">EAN-13</a> (1D barcode, digits only)</li>
+
+<li><a href="create_EAN-8.html">EAN-8</a> (1D barcode, digits only)</li>
+
+<li><a href="create_UPCA.html">UPC-A</a> (1D barcode, digits only)</li>
+
+<li><a href="create_UPCE.html">UPC-E</a> (1D barcode, digits only)</li>
+
+<li><a href="create_Code_128.html">Code 128</a> (1D barcode, 0-9, a-z, A-Z,
+and some special chars)</li>
+
+<li><a href="create_PDF417.html">PDF417</a> (2D, any chars, error correction)</a></li>
+
+<li><a href="create_QR_Code.html">QR Code</a> (2D, up to 2956 bytes, error correction)</li>
+</ul>
+
+</span>
+</item4>
+</section>
+
+</div>
+
+</body></html>

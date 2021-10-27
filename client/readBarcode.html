@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Barcode Service : read/decode a barcode image</title>
+<meta name="description" content="This form allows to send a barcode image to service and receive the decoded data" />
+<meta name="charset" content="UTF-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="-1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" type="text/css" href="css/main.css" />
+<script src="js/jquery.js"></script>
+<script src="js/core_lib.js"></script>
+<script>
+var fileData;
+
+$(function() {
+  // Load picture from the local filesystem;
+
+  $('#fileInput').on('change', function () {
+    if (window.FileReader) {
+      var reader = new FileReader();
+      reader.onload = function() {
+        var b64 = reader.result;
+          // fileData - in this var you will
+          // have the file data in Base64 format;
+
+        fileData = b64.replace(/^data:.+;base64,/, '');
+        // console.log("fileData: " + fileData);
+        $("#picture").attr("src", reader.result);
+        $('#btnSend').focus();
+      };
+      reader.onerror = function(e) {
+        console.log('Failed to load image file!');
+      }
+      reader.readAsDataURL($('#fileInput').prop('files')[0]);
+    }
+  });
+  $('#fileInput').focus();
+});
+
+
+procInput = () => {
+
+  let jsonObj = {};
+
+  jsonObj['id'] = "1";
+  jsonObj['type'] = "";
+  jsonObj['data'] = "";
+  jsonObj['picture'] = fileData;
+
+  let dataToSend = JSON.stringify(jsonObj);
+  const base_url = localStorage.getItem('barcode_svc_url')
+
+  if (!base_url) {
+    alert('Cannot send request - BASE_URL is not set!');
+    return;
+  }
+  const Url = base_url + '/barcodes/read';
+
+  $.ajax ({
+    url: Url,
+    type: "POST",
+    crossDomain: true,
+    dataType: 'json',
+    data: dataToSend,
+//    async: false,
+    contentType: "application/json",
+  })
+  .done (function(data, textStatus, jqXHR) {
+    if (jqXHR.status == 200) {
+      console.log("status: 200, data: " + data);
+      const dataStr = data.data;
+      const pattern = /(\r\n|\r|\n)/g;
+      if (dataStr.search(pattern) > 0) {
+        const message = dataStr.replace(/(\r\n|\r|\n)/g, '<br>');
+        // const message = dataStr.split('\n').join('<br>');
+        $("#barcodeData").html(message);
+      } else {
+        $("#barcodeData").text(dataStr);
+      }
+      $("#barcodeType").text(data.type);
+    } else {
+      $("#barcodeData").text(
+        jqXHR.status + ' ' + jqXHR.statusText + '; ' + data.data);
+    }
+  })
+  .fail (function(jqXHR, textStatus, errorThrown) {
+    let errMsg = checkMessageLen(jqXHR.status + ' ' +
+            jqXHR.statusText + '; ' + jqXHR.responseText);
+    console.log(errMsg);
+    alert(errMsg);
+  });
+};
+
+
+reset = () => {
+  fileData = null;
+  $("#picture").attr("src", "images/nopic.png");
+  $("#barcodeData").text('Load picture and click "Send"..');
+  $("#barcodeType").text('?');
+  $('#fileInput').focus();
+};
+
+
+moveBack = () => {
+  window.history.back();
+};
+</script>
+</head><body>
+
+<div id="main">
+
+<h2 class="center">Read/decode barcode</h2>
+
+<section>
+<item1>
+
+<img class="picture" id="picture" src="images/nopic.png" />
+
+</item1>
+
+<item2>
+
+<span class="label">Picture:</span>
+<input type="file" id="fileInput"
+    accept="image/png, image/jpeg, image/gif" style="font-size:100%" />
+
+<p style="padding-top:2rem">
+<span class="label">Barcode Data:</span></p>
+<p id="barcodeData" style="padding-left:2rem;padding-bottom:2rem">
+Load picture and click "Send"..</p>
+
+<span class="label">Barcode Type:</span></p>
+<p id="barcodeType" style="padding-left:2rem;padding-bottom:2rem">
+?</p>
+
+</item2>
+</section>
+
+<section>
+<item3>
+
+<input id="btnSend" type="button" class="button" name="btnOk"
+    value="Send" onclick="procInput()" />
+
+<input type="button" class="button" name="btnCancel"
+    value="Back" onclick="moveBack()" />
+
+<input type="button" class="button" name="btnReset"
+    value="Reset" onclick="reset()" />
+
+</item3>
+</section>
+
+</div>
+
+</body></html>

@@ -1,0 +1,92 @@
+app:
+    name: BarcodeSvc
+    description: BarcodeSvc is a Spring Boot RESTful web service
+    cors-allowed-origins:
+        - http://localhost
+        - http://localhost:3000
+        - http://ws4
+        - https://ws4
+        - https://localhost
+
+security:
+    require-ssl: true
+
+server:
+    contextPath: /BarcodeSvc
+    connection-timeout: 15s
+    max-http-header-size: 8KB
+    port: 8443
+    ssl:
+        enabled: true
+        key-store-type: PKCS12
+        key-store: classpath:keystore.p12
+        key-store-password: ${BARCODE_KEYSTORE_PASS}
+    tomcat:
+        max-threads: 200
+        max-swallow-size: 2MB
+        max-http-post-size: 2MB
+
+spring:
+    profiles:
+         active: dev
+    application:
+        name: BarcodeSvc
+    mvc:
+        format:
+            date: iso
+            date-time: iso
+        throw-exception-if-no-handler-found: true
+    servlet:
+        multipart:
+            max-file-size: 2MB
+            max-request-size: 2MB
+    jackson:
+        date-format: yyyy-MM-dd
+        time-zone: Europe/Moscow
+    security:
+        oauth2:
+            resourceserver:
+                jwt:
+                    issuer-uri: https://srv11:8443/auth/realms/home_net
+                    jwk-set-uri: https://srv11:8443/auth/realms/home_net/protocol/openid-connect/certs
+
+management:
+    endpoints:
+        web:
+            exposure:
+                include:
+                    - metrics
+                    - env
+                    - info
+                    - health
+
+---
+spring:
+    config:
+        activate:
+            on-profile: prod
+
+logging:
+    level:
+        root: WARN
+        org.springframework.web: ERROR
+
+---
+spring:
+    config:
+        activate:
+            on-profile: dev
+
+server:
+    error:
+        include-exception: true
+        include-stacktrace: always
+
+logging:
+    file:
+        name: /home/alex/tmp/BarcodeSvc.log
+    level:
+        root: DEBUG
+        org.springframework.web: TRACE
+        org.springframework.security: TRACE
+        org.springframework.security.oauth2: TRACE

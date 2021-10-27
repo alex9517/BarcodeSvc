@@ -1,0 +1,438 @@
+@charset "UTF-8";
+
+@font-face {
+font-family: 'Droid Sans';
+src: url('DroidSans.woff') format('woff');
+font-weight: normal;
+}
+
+@font-face {
+font-family: 'Droid Sans';
+src: url('DroidSans-Bold.woff') format('woff');
+font-weight: bold;
+}
+
+@font-face {
+font-family: 'Droid Sans Mono';
+src: url('DroidSansMono.woff') format('woff');
+}
+
+header, section, footer, aside, nav, article, figure, figcaption {
+display: block;
+}
+
+html {
+height: 100%;
+}
+
+body {
+margin: 0;
+border: 0;
+padding: 0;
+min-width: 480px;
+min-height: 100%;
+font-size: 2vw;
+background: lavender;
+}
+
+#main {
+margin: 0;
+border: 0;
+padding: 0.5em 0.5em 0.5em 0.5em;
+font-family: 'Droid Sans', sans-serif;
+background: lavender;
+color: black;
+}
+
+section {
+display: flex;
+align-items: flex-start;
+justify-content: space-around;
+}
+
+item1 {
+flex: 1;
+margin: 2.2rem 1rem 1rem 1rem;
+border: 1px solid lightgray;
+padding: 1rem;
+background: white;
+}
+
+item2 {
+flex: 1;
+margin: 1rem;
+# border: 1px solid gray;
+padding: 1rem;
+}
+
+
+item3 {
+flex: 1;
+margin: 1rem;
+# border: 1px solid gray;
+padding: 1rem;
+text-align: center;
+}
+
+.box_1 {
+-moz-border-radius: 0.3em;
+-webkit-border-radius: 0.3em;
+-khtml-border-radius: 0.3em;
+border-radius: 0.3em;
+border: 0;
+margin: 0.5em 0 0.5em 0;
+padding: 0.2em 0.5em 0.2em 0.5em;
+background: lavender;
+}
+
+a:link, a:visited {
+text-decoration: none;
+color: blue;
+}
+
+a.one:link, a.one:visited {
+color: cyan;
+}
+
+a.one:hover {
+color: lightcyan;
+}
+
+.error {
+color: red;
+}
+
+hr {
+margin-top: 32px;
+border: none;
+height: 3px;
+color: lightgray;
+background-color: lightgray;
+}
+
+.square {
+list-style-type: square;
+margin-top: 0;
+margin-bottom: 0.5em;
+padding-left: 2em;
+}
+
+.bigsquare {
+list-style-type: square;
+margin-top: 0;
+margin-bottom: 0.5em;
+padding-left: 2em;
+font-family: 'Droid Sans', sans-serif;
+font-size: 125%;
+}
+
+span.label {
+font-family: 'Droid Sans', sans-serif;
+color: rgb(0,160,32);
+}
+
+p {
+margin: 0;
+text-align: left;
+padding: 0 0 0.5em 0;
+}
+
+p.center {
+text-align: center;
+}
+
+.datetime_cen {
+text-align: center;
+padding: 0.5em 0 0.5em 0;
+font-size: 50%;
+color: darkslategray;
+}
+
+.info {
+text-align: center;
+padding: 0.5em 0 0.5em 0;
+font-size: 130%;
+color: darkslategray;
+}
+
+.info_small {
+padding: 0.5em 0 0.5em 0;
+font-size: 70%;
+color: darkslategray;
+}
+
+.center_just {
+padding: 0 4em 0 4em;
+text-align: justify;
+}
+
+.center_indent {
+padding: 0 5em 0 5em;
+text-align: center;
+}
+
+.indent {
+text-align: justify;
+text-indent: 4em;
+}
+
+.ext {
+text-indent: -4em;
+padding-left: 4em;
+}
+
+.just {
+text-align: justify;
+}
+
+input {
+font-size: 100%;
+font-family: 'Droid Sans', sans-serif;
+color: darkslategray;
+}
+
+input[type=checkbox] {
+margin-right: 0.5em;
+}
+
+textarea {
+padding: 0.2em;
+font-size: 90%;
+font-family: 'Droid Sans', sans-serif;
+color: darkslategray;
+}
+
+select {
+font-size: 100%;
+font-family: 'Droid Sans', sans-serif;
+color: darkslategray;
+}
+
+h1 {
+margin: 0;
+padding: 0.3em 0 0.5em 0;
+text-align: center;
+font-size: 170%;
+font-family: 'Open Sans', sans-serif;
+font-weight: bold;
+color: #00a020;
+}
+
+h2 {
+margin: 0;
+padding: 1em 0 1em 0;
+text-align: left;
+font-size: 160%;
+font-family: 'Open Sans', sans-serif;
+font-weight: bold;
+color: #00a020;
+}
+
+h2.top {
+padding: 0.3em 0 0.5em 0;
+}
+
+h2.center {
+text-align: center;
+}
+
+h3 {
+margin: 0;
+padding: 0.6em 0 0.8em 0;
+text-align: left;
+font-family: 'Open Sans', sans-serif;
+font-size: 140%;
+font-weight: bold;
+color: #1e90ff;
+}
+
+h3.green {
+color: #00a020;
+}
+
+h3.part {
+padding-top: 1.6em;
+}
+
+h3.part2 {
+padding-top: 1.6em;
+color: #00a020;
+}
+
+h3.center {
+text-align: center;
+color: green;
+}
+
+h4 {
+margin: 0;
+padding: 1.5em 0 0.8em 0;
+text-align: left;
+font-family: 'Droid Sans', sans-serif;
+font-size: 110%;
+font-weight: normal;
+font-style: italic;
+color: black;
+}
+
+h5 {
+margin: 0;
+padding: 1em 0 0.5em 0;
+text-align: left;
+font-family: 'Droid Sans', sans-serif;
+font-size: 100%;
+font-style: italic;
+font-weight: normal;
+color: teal;
+}
+
+h6 {
+text-align: right;
+font-family: 'Droid Sans', sans-serif;
+color: black;
+}
+
+pre {
+font-family: 'Droid Sans Mono', Monospace, Courier;
+font-size: 100%;
+font-weight: normal;
+color: green;
+}
+
+samp {
+font-family: 'Droid Sans Mono', Monospace, Courier;
+font-size: 90%;
+font-weight: normal;
+color: navy;
+}
+
+img {
+margin: 0.5em;
+border: 0;
+padding: 0;
+vertical-align: middle;
+}
+
+img.back {
+width: 100%;
+height: auto;
+display: block;
+opacity: 0.5;
+margin: 0;
+}
+
+.centered {
+display: block;
+margin: 0.5em auto 0.5em auto;
+max-width: 100%;
+height: auto;
+}
+
+.scaled {
+display: block;
+margin: 0.5em auto 0.5em auto;
+width: 100%;
+height: auto;
+}
+
+.picture {
+display: block;
+margin: 0 auto 0 auto;
+width: auto;
+height: auto;
+#background: white;
+}
+
+.button {
+margin: 0 0.2em 0 0.2em;
+border: none;
+border-radius: 0.3em;
+color: white;
+width: 9em;
+height: 3em;
+text-align: center;
+text-decoration: none;
+display: inline-block;
+font-size: 100%;
+background-color: rgb(76,175,80);
+/* background-color: #4CAF50;  Green */
+background: linear-gradient(rgb(106,205, 110), rgb(46,145,50));
+}
+
+.button:hover {
+color: white;
+background-color: rgb(86,185,90);
+background: linear-gradient(rgb(96,195,100), rgb(76,175,80));
+}
+
+.button:focus {
+outline-color: none;
+background-color: rgb(46,155,60);
+background: linear-gradient(rgb(76,175,80), rgb(6,105,10));
+}
+
+.button2 {
+background-color: white;
+color: black;
+border: 2px solid #4CAF50;
+width: 9em;
+height: 3em;
+text-align: center;
+text-decoration: none;
+display: inline-block;
+font-size: 100%;
+border-radius: 0.3em;
+}
+
+.button4 {
+display: inline-block;
+/* background-color: rgba(255,255,255,0); */
+background: linear-gradient(rgb(230,230, 250), rgb(200,200,220));
+border: 0;
+/* border: 2px solid rgb(190,190,200); */
+padding: 0;
+color: steelblue;
+width: 6.4em;
+height: 2.4em;
+text-align: center;
+text-decoration: none;
+font-size: 90%;
+font-family: 'Open-Sans Semibold', sans-serif;
+/* -webkit-border-radius: 0.3em; */
+/* -moz-border-radius: 0.3em; */
+/* border-radius: 0.3em; */
+cursor: pointer;
+position: fixed;
+top: 1em;
+right: 0.8em;
+}
+
+.button4:hover {
+/* background-color: rgba(255,255,255, 0.2); */
+background: linear-gradient(rgb(240,240, 255), rgb(210,210,230));
+}
+
+.button_transp {
+display: inline-block;
+background-color: rgba(152,251,152,0.2);
+border: 2px solid rgb(152,251,152);
+padding: 0;
+color: rgb(132,231,132);
+width: 9em;
+height: 2.6em;
+text-align: center;
+text-decoration: none;
+font-size: 110%;
+font-weight: bold;
+border-radius: 0.3em;
+cursor: pointer;
+}
+
+.button_transp:hover {
+background-color: rgba(152,251,152,0.4);
+}
+
+.disabled {
+opacity: 0.6;
+cursor: not-allowed;
+}

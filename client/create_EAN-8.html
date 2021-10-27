@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Barcode Service : read/decode a barcode image</title>
+<meta name="description" content="This form allows to send a barcode image to service and receive the decoded data" />
+<meta name="charset" content="UTF-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="-1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" type="text/css" href="css/main.css" />
+<script src="js/jquery.js"></script>
+<script>
+$(function() {
+  $('#barcodeData').focus();
+});
+
+
+procInput = () => {
+  const codeData = $("#barcodeData").val().trim();
+
+  if (codeData && codeData.length == 7) {
+    const base_url = localStorage.getItem('barcode_svc_url')
+
+    if (!base_url) {
+      alert('Cannot send request - BASE_URL is not set!');
+      return false;
+    }
+    const Url = base_url + '/barcodes/create/ean8/' + codeData;
+    // console.log('Url: ' + Url);
+    $("#picture").attr("src", Url);
+    return true;
+  }
+  alert('Barcode data must be exactly 7 digits!');
+  return false;
+};
+
+
+reset = () => {
+  $("#picture").attr("src", "images/nopic.png");
+  $("#barcodeData").val('');
+  $("#barcodeData").focus();
+};
+
+
+moveBack = () => {
+  window.history.back();
+};
+</script>
+</head><body>
+
+<div id="main">
+
+<h1>Create EAN-8 barcode</h1>
+
+<section>
+<item1>
+
+<img class="picture" id="picture" src="images/nopic.png" />
+
+</item1>
+
+<item2>
+
+<p>
+<span class="label">Barcode Data:</span></p>
+
+<div style="padding-left:2rem;padding-bottom:1rem">
+<input type="number" maxlength="7"
+    id="barcodeData" placeholder="Exactly 7 digits" />
+</div>
+
+<p class="info_small">
+The EAN-8 is a <b>numeric-only</b> code. EAN-8 barcodes may be used to encode
+GTIN-8 (8-digit Global Trade Identification Numbers) which are product
+identifiers from the GS1 System. A GTIN-8 begins with a 2- or 3-digit GS1 prefix
+(which is assigned to each national GS1 authority) followed by a 5- or 4-digit
+item reference element depending on the length of the GS1 prefix), and a
+checksum digit (auto-generated; so, you should only enter <b>7 digits</b>).</p>
+
+</item2>
+</section>
+
+<section>
+<item3>
+
+<input id="btnSend" type="button" class="button" name="btnOk"
+    value="Send" onclick="procInput()" />
+
+<input type="button" class="button" name="btnCancel"
+    value="Back" onclick="moveBack()" />
+
+<input type="button" class="button" name="btnReset"
+    value="Reset" onclick="reset()" />
+
+</item3>
+</section>
+
+</div>
+
+</body></html>

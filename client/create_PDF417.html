@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Barcode Service : read/decode a barcode image</title>
+<meta name="description" content="This form allows to send a barcode image to service and receive the decoded data" />
+<meta name="charset" content="UTF-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="-1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" type="text/css" href="css/main.css" />
+<script src="js/jquery.js"></script>
+<script>
+$(function() {
+  $('#barcodeData').focus();
+});
+
+
+procInput = () => {
+  const codeData = $("#barcodeData").val().trim();
+
+  if (codeData && codeData.length <= 100) {
+    let dataToSend = JSON.stringify(codeData);
+    const base_url = localStorage.getItem('barcode_svc_url')
+
+    if (!base_url) {
+      alert('Cannot send request - BASE_URL is not set!');
+      return;
+    }
+    const Url = base_url + '/barcodes/create/pdf417';
+
+    $.ajax ({
+      url: Url,
+      type: "POST",
+      crossDomain: true,
+      dataType: 'json',
+      data: dataToSend,
+      // async: false,
+      contentType: "application/json",
+    })
+    .done (function(data, textStatus, jqXHR) {
+      if (jqXHR.status == 200) {
+        $("#picture").attr("src", "data:image/png;base64," + data.picture);
+      } else {
+        console.log('procInput(), ' +
+            jqXHR.status + ' ' + jqXHR.statusText);
+      }
+    })
+    .fail (function(jqXHR, textStatus, errorThrown) {
+      let errMsg = checkMessageLen(jqXHR.status + ' ' +
+            jqXHR.statusText + '; ' + jqXHR.responseText);
+      console.log(errMsg);
+      alert(errMsg);
+    });
+  } else {
+    alert('PDF417 data is limited to 100 chars!');
+  }
+};
+
+
+reset = () => {
+  $("#picture").attr("src", "images/nopic.png");
+  $("#barcodeData").val('');
+  $("#barcodeData").focus();
+};
+
+
+moveBack = () => {
+  window.history.back();
+};
+</script>
+</head><body>
+
+<div id="main">
+
+<h1>Create PDF417 barcode</h1>
+
+<section>
+<item1>
+
+<img class="picture" id="picture" src="images/nopic.png" />
+
+</item1>
+
+<item2>
+
+<p>
+<span class="label">Barcode Data:</span></p>
+
+<div style="padding-left:2rem;padding-bottom:1rem">
+<textarea id="barcodeData" rows="6" cols="32">
+</textarea>
+</div>
+
+<p class="info_small">
+PDF417 (Portable Data File) is a stacked, linear 2D barcode using Reed-Solomon
+error correction instead of check digits. Note that it can be 4 times larger in
+size than other 2D barcodes. PDF417 accepts about 2700 codewords (letters,
+numbers, and other symbols). It is usually used in driver's licenses, boarding
+passes, identification cards, etc.</p>
+
+</item2>
+</section>
+
+<section>
+<item3>
+
+<input id="btnSend" type="button" class="button" name="btnOk"
+    value="Send" onclick="procInput()" />
+
+<input type="button" class="button" name="btnCancel"
+    value="Back" onclick="moveBack()" />
+
+<input type="button" class="button" name="btnReset"
+    value="Reset" onclick="reset()" />
+
+</item3>
+</section>
+
+</div>
+
+</body></html>
